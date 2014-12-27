@@ -57,7 +57,6 @@ describe "User Pages" do
         it { should have_title(user.name) }
         it { should have_selector('div.alert.alert-success', text: 'Welcome') }
       end
-
     end
   end
 end
