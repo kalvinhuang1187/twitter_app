@@ -9,16 +9,19 @@ class User < ActiveRecord::Base
 	has_secure_password
 	validates :password, length: { minimum: 6 }
 
+	# returns a random string of length 16 composed of the characters A–Z, a–z, 0–9, “-”, and “_” 
 	def User.new_remember_token
       SecureRandom.urlsafe_base64
   	end
 
+  	# hashes token
 	def User.digest(token)
       Digest::SHA1.hexdigest(token.to_s)
 	end
 
   	private
 
+  	  # create token by getting a 16 char random string and then hashing it
       def create_remember_token
       	self.remember_token = User.digest(User.new_remember_token)
       end
