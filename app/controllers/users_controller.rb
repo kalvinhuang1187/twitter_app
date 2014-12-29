@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :signed_in_user, only: [:edit, :update]
+
   def new
   	@user = User.new
   end
@@ -39,4 +41,14 @@ class UsersController < ApplicationController
   		params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation)
   	end
+
+    # Before filters
+
+    def signed_in_user
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
+    #unless signed_in?
+    #  flash[:notice] = "Please sign in."
+    #  redirect_to signin_url
+    #end
 end
