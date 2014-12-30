@@ -27,6 +27,13 @@ module SessionsHelper
     user == current_user
   end
 
+  def signed_in_user
+    unless signed_in?
+      store_location
+      redirect_to signin_url, notice: "Please sign in."
+    end
+  end
+
   # 1. change the user’s remember token in the database
   # 2. use the delete method on cookies to remove the remember token from the session
   # 3. set the current user to nil
